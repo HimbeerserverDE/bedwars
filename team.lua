@@ -1,8 +1,8 @@
 bedwars.teams = {red = {}, green = {}, blue = {}, yellow = {}}
 
 bedwars.get_biggest_team = function()
-	local teamnames = {1 = "red", 2 = "green", 3 = "blue", 4 = "yellow"}
-	local lengths = {1 = #red, 2 = #green, 3 = #blue, 4 = #yellow}
+	local teamnames = {"red", "green", "blue", "yellow"}
+	local lengths = {#red, #green, #blue, #yellow}
 	local greatest = 0
 	for k, v in ipairs(lengths) do
 		if v > greatest then greatest = v end
@@ -13,8 +13,8 @@ bedwars.get_biggest_team = function()
 end
 
 bedwars.get_smallest_team = function()
-	local teamnames = {1 = "red", 2 = "green", 3 = "blue", 4 = "yellow"}
-	local lengths = {1 = #red, 2 = #green, 3 = #blue, 4 = #yellow}
+	local teamnames = {"red", "green", "blue", "yellow"}
+	local lengths = {#red, #green, #blue, #yellow}
 	local smallest = 5
 	for k, v in ipairs(lengths) do
 		if v < smallest then smallest = v end
