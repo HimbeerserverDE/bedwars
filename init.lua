@@ -4,7 +4,7 @@ bedwars.storage = minetest.get_mod_storage()
 
 local mp = minetest.get_modpath(minetest.get_current_modname())
 
-dofile(mp .. "/item.lua")
+dofile(mp .. "/shop.lua")
 dofile(mp .. "/map.lua")
 dofile(mp .. "/team.lua")
 dofile(mp .. "/ui.lua")
