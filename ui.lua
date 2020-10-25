@@ -12,4 +12,9 @@ bedwars.std_hud = {
 
 minetest.register_on_joinplayer(function(player)
 	bedwars.huds[player:get_player_name()] = player:hud_add(bedwars.std_hud)
+	bedwars.ui_update()
 end)
+
+bedwars.ui_update = function()
+	
+end
