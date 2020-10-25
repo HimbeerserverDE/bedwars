@@ -2,7 +2,7 @@ bedwars.huds = {}
 
 bedwars.std_hud = {
 	hud_elem_type = "text",
-	position = {x = 0.9, y = 0.5},
+	position = {x = 0.9, y = 0.3},
 	offset = {x = 20, y = 20},
 	text = "You",
 	alignment = {x = 1, y = 1},
