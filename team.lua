@@ -49,3 +49,28 @@ minetest.register_on_leaveplayer(function(player)
 	end
 	bedwars.ui_update()
 end)
+
+bedwars.get_team_by_pos = function(pos)
+	local pos_str = minetest.pos_to_string(pos)
+	local map = bedwars.get_map_by_name(bedwars.current_map)
+	local team_pos_table = {red = map.red, green = map.green, blue = map.blue, yellow = map.yellow}
+	local diffs = {}
+	for team, teampos in pairs(team_pos_table) do
+		local diff = {x = abs(pos.x - teampos.x), y = abs(pos.y - teampos.y), z = abs(pos.z - teampos.z)}
+		diffs[team] = diff
+	end
+	local smallest = {x = 100, y = 100}
+	for team, diff in pairs(diffs) do
+		if diff.x < smallest.x then
+			smallest.x = diff.x
+		end
+		if diff.z < smallest.z then
+			smallest.z = diff.z
+		end
+	end
+	for team, diff in pairs(diffs) do
+		if smallest.x == diff.x and smallest.z == diff.z then
+			return team
+		end
+	end
+end
