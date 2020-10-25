@@ -19,7 +19,7 @@ bedwars.get_smallest_team = function()
 	for k, v in ipairs(lengths) do
 		if v < smallest then smallest = v end
 	end
-	for k, v in ipairs(legnths) do
+	for k, v in ipairs(lengths) do
 		if v == smallest then return teamnames[k] end
 	end
 end
