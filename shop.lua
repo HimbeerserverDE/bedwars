@@ -133,7 +133,7 @@ minetest.register_node("bedwars:shop_team", {
 			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
 		},
 	},
-	groups = {},
+	groups = {snappy = 3},
 	on_construct = function(pos)
 		minetest.get_meta(pos):set_string("formspec", bedwars.team_shop_fs)
 	end,
