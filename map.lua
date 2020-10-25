@@ -48,7 +48,7 @@ minetest.register_chatcommand("map_add", {
 			"mese3",
 			"mese4",
 		}
-		if #param:split(" ") return false, "Invalid arguments" end
+		if #param:split(" ") then return false, "Invalid arguments" end
 		for k, v in ipairs(param:split(" ")) do
 			params[paramnames[k]] = v
 		end
