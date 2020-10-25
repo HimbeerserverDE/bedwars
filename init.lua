@@ -8,6 +8,7 @@ dofile(mp .. "/item.lua")
 dofile(mp .. "/map.lua")
 dofile(mp .. "/team.lua")
 dofile(mp .. "/ui.lua")
+dofile(mp .. "/bed.lua")
 
 bedwars.log = function(msg)
 	if not msg then return end
