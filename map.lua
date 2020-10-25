@@ -48,7 +48,7 @@ minetest.register_chatcommand("map_add", {
 			"mese3",
 			"mese4",
 		}
-		if #param:split(" ") then return false, "Invalid arguments" end
+		if #param:split(" ") ~= 13 then return false, "Invalid arguments" end
 		for k, v in ipairs(param:split(" ")) do
 			params[paramnames[k]] = v
 		end
@@ -77,3 +77,7 @@ minetest.register_chatcommand("map_list", {
 		return true, dump(bedwars.maps)
 	end,
 })
+
+minetest.register_on_shutdown(function()
+	bedwars.storage:set_string("maps", minetest.serialize(bedwars.maps))
+end)

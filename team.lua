@@ -53,13 +53,13 @@ end)
 bedwars.get_team_by_pos = function(pos)
 	local pos_str = minetest.pos_to_string(pos)
 	local map = bedwars.get_map_by_name(bedwars.current_map)
-	local team_pos_table = {red = map.red, green = map.green, blue = map.blue, yellow = map.yellow}
+	local team_pos_table = {red = minetest.string_to_pos(map.red), green = minetest.string_to_pos(map.green), blue = minetest.string_to_pos(map.blue), yellow = minetest.string_to_pos(map.yellow)}
 	local diffs = {}
 	for team, teampos in pairs(team_pos_table) do
-		local diff = {x = abs(pos.x - teampos.x), y = abs(pos.y - teampos.y), z = abs(pos.z - teampos.z)}
+		local diff = {x = math.abs(pos.x - teampos.x), y = math.abs(pos.y - teampos.y), z = math.abs(pos.z - teampos.z)}
 		diffs[team] = diff
 	end
-	local smallest = {x = 100, y = 100}
+	local smallest = {x = 100, z = 100}
 	for team, diff in pairs(diffs) do
 		if diff.x < smallest.x then
 			smallest.x = diff.x

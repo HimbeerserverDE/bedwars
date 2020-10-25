@@ -15,4 +15,12 @@ bedwars.log = function(msg)
 	minetest.log("action", "[bedwars] " .. msg)
 end
 
+local maps = {}
+for _, map in ipairs(bedwars.maps) do
+	table.insert(maps, map.name)
+end
+
+math.randomseed(os.clock())
+bedwars.current_map = maps[math.random(1, #maps)]
+
 bedwars.log("[bedwars] Loaded mod")
