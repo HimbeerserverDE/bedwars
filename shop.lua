@@ -7,7 +7,7 @@ bedwars.item_shop_fs = "size[7,9]" ..
 minetest.register_node("bedwars:shop_item", {
 	description = "Item shop",
 	drawtype = "nodebox",
-	tiles = {"shop_item.lua"},
+	tiles = {"shop_item.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	is_ground_content = false,
@@ -122,7 +122,7 @@ minetest.register_node("bedwars:shop_item", {
 minetest.register_node("bedwars:shop_team", {
 	description = "Team shop",
 	drawtype = "nodebox",
-	tiles = {"shop_team.lua"},
+	tiles = {"shop_team.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	is_ground_content = false,
