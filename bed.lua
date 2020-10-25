@@ -23,6 +23,18 @@ minetest.register_on_dieplayer(function(player)
 end)
 
 minetest.register_on_respawnplayer(function(player)
-	player:set_pos(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map)[bedwars.get_player_team(player:get_player_name())]))
+	if not bedwars.beds[bedwars.get_player_team(player:get_player_name())] then
+		minetest.kick_player(player:get_player_name(), "You cannot respawn because your bed has been destroyed. Please wait for a new game to start.")
+	else
+		player:set_pos(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map)[bedwars.get_player_team(player:get_player_name())]))
+	end
 	return true
+end)
+
+minetest.register_on_joinplayer(function(player)
+	minetest.after(1, function()
+		if not bedwars.beds[bedwars.get_player_team(player:get_player_name())] then
+			minetest.kick_player(player:get_player_name(), "You cannot respawn because your bed has been destroyed. Please wait for a new game to start.")
+		end
+	end)
 end)
