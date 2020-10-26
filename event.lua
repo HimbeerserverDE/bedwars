@@ -1,4 +1,4 @@
-bedwars.events = {3, 3, 3, 3, 6, 6, 6, 6}
+bedwars.events = {300, 300, 300, 300, 600, 600, 600, 600}
 bedwars.event_list = {"dia2", "mese2", "dia3", "mese3", "bed", "game_end"}
 bedwars.event_msg = {
 	"Diamond generators have been upgraded to Tier 2",
@@ -26,7 +26,20 @@ bedwars.event_timer_start = function()
 			bedwars.event = bedwars.event + 1
 			minetest.chat_send_all(bedwars.event_msg[bedwars.event])
 			bedwars.timer = 0
+			
+			if bedwars.event_list[bedwars.event] == "bed" then
+				bedwars.beds = {red = false, green = false, blue = false, yellow = false}
+				minetest.sound_play("bed_destruction", {
+					to_player = minetest.get_connected_players()[1],
+					gain = 2.0,
+				})
+			end
+			if bedwars.event_list[bedwars.event] == "game_end" then
+				minetest.request_shutdown("Game has ended", false, 1)
+			end
+		end
+		if bedwars.event_list[bedwars.event] ~= "game_end" then
+			bedwars.ui_update()
 		end
 	end)
-	bedwars.ui_update()
 end
