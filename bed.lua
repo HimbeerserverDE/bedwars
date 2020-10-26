@@ -25,6 +25,26 @@ end)
 minetest.register_on_respawnplayer(function(player)
 	if not bedwars.beds[bedwars.get_player_team(player:get_player_name())] then
 		minetest.kick_player(player:get_player_name(), "You cannot respawn because your bed has been destroyed. Please wait for a new game to start.")
+		minetest.after(1, function()
+			local empty_teams = 0
+			local alive = {red = true, green = true, blue = true, yellow = true}
+			for k, v in pairs(bedwars.teams) do
+				if #v == 0 then
+					empty_teams = empty_teams + 1
+					alive[k] = false
+			end
+			end
+			local last_team
+			for k, v in pairs(alive) do
+				if v then
+					last_team = k
+				end
+			end
+			if empty_teams == 3 then
+				minetest.chat_send_all("Team " .. minetest.colorize(bedwars.str_to_colour(last_team), last_team) .. " has won!")
+				minetest.request_shutdown("Game has ended", false, 10) 
+			end
+		end, nil)
 	else
 		player:set_pos(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map)[bedwars.get_player_team(player:get_player_name())]))
 	end
