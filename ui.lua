@@ -2,7 +2,7 @@ bedwars.huds = {}
 
 bedwars.std_hud = {
 	hud_elem_type = "text",
-	position = {x = 0.9, y = 0.3},
+	position = {x = 0.85, y = 0.3},
 	offset = {x = 20, y = 20},
 	text = "Current map: -",
 	alignment = {x = 1, y = 1},
@@ -23,7 +23,7 @@ bedwars.ui_update = function()
 	if bedwars.beds.yellow then yellowbed = "+" end
 	
 	local text = "Current map: " .. bedwars.current_map .. "\n" ..
-	bedwars.next_event_msg[bedwars.event + 1] .. ": " .. tostring(300 - (bedwars.timer or 0)) .. "\n\n" ..
+	bedwars.next_event_msg[bedwars.event + 1] .. ": " .. tostring(math.floor(bedwars.events[bedwars.event + 1] - (bedwars.timer or 0))) .. "\n\n" ..
 	"R: " .. (redbed or #bedwars.teams.red) .. "\n" ..
 	"G: " .. (greenbed or #bedwars.teams.green) .. "\n" ..
 	"B: " .. (bluebed or #bedwars.teams.blue) .. "\n" ..
