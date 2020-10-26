@@ -25,9 +25,8 @@ bedwars.event_timer_start = function()
 		if bedwars.timer >= bedwars.events[bedwars.event + 1] then
 			bedwars.event = bedwars.event + 1
 			minetest.chat_send_all(bedwars.event_msg[bedwars.event])
-			bedwars.event_funcs[bedwars.event]()
-			bedwars.ui_update()
 			bedwars.timer = 0
 		end
 	end)
+	bedwars.ui_update()
 end
