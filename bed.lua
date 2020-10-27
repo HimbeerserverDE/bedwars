@@ -46,7 +46,9 @@ minetest.register_on_respawnplayer(function(player)
 			end
 		end, nil)
 	else
-		player:set_pos(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map)[bedwars.get_player_team(player:get_player_name())]))
+		minetest.after(0, function(player)
+			player:set_pos(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map)[bedwars.get_player_team(player:get_player_name())]))
+		end, player)
 	end
 	return true
 end)
