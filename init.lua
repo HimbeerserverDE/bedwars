@@ -24,12 +24,14 @@ for _, map in ipairs(bedwars.maps) do
 	table.insert(maps, map.name)
 end
 
-math.randomseed(os.clock())
-bedwars.current_map = maps[math.random(1, #maps)]
-
-minetest.register_on_joinplayer(function(player)
-	if not bedwars.init then bedwars.init = true end
-	bedwars.event_timer_start()
-end)
+if #maps > 0 then
+	math.randomseed(os.clock())
+	bedwars.current_map = maps[math.random(1, #maps)]
+	
+	minetest.register_on_joinplayer(function(player)
+		if not bedwars.init then bedwars.init = true end
+		bedwars.event_timer_start()
+	end)
+end
 
 bedwars.log("[bedwars] Loaded mod")
