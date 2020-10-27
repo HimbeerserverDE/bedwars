@@ -59,7 +59,8 @@ minetest.register_chatcommand("map_modify", {
 	params = "<map_name> <attrib_name>",
 	privs = {bedwars_maps = true},
 	func = function(name, param)
-		local map_name = param:split(" ")[1], key = param:split(" ")[2]
+		local map_name = param:split(" ")[1]
+		local key = param:split(" ")[2]
 		if not map_name or not key then return false, "Invalid arguments" end
 		bedwars.maps[map_name][key] = minetest.pos_to_string(minetest.get_player_by_name(name):get_pos())
 		return true, "Attribute changed to current position"
