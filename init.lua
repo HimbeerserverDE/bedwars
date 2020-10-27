@@ -6,14 +6,6 @@ bedwars.storage = minetest.get_mod_storage()
 
 local mp = minetest.get_modpath(minetest.get_current_modname())
 
-dofile(mp .. "/shop.lua")
-dofile(mp .. "/map.lua")
-dofile(mp .. "/team.lua")
-dofile(mp .. "/ui.lua")
-dofile(mp .. "/bed.lua")
-dofile(mp .. "/event.lua")
-dofile(mp .. "/forge.lua")
-
 bedwars.log = function(msg)
 	if not msg then return end
 	minetest.log("action", "[bedwars] " .. msg)
@@ -25,6 +17,14 @@ for _, map in ipairs(bedwars.maps) do
 end
 
 if #maps > 0 then
+	dofile(mp .. "/shop.lua")
+	dofile(mp .. "/map.lua")
+	dofile(mp .. "/team.lua")
+	dofile(mp .. "/ui.lua")
+	dofile(mp .. "/bed.lua")
+	dofile(mp .. "/event.lua")
+	dofile(mp .. "/forge.lua")
+	
 	math.randomseed(os.clock())
 	bedwars.current_map = maps[math.random(1, #maps)]
 	
