@@ -27,8 +27,8 @@ bedwars.get_map_by_name = function(name)
 	end
 end
 
-minetest.register_chatcommand("map_template", {
-	description = "Add map template",
+minetest.register_chatcommand("map_default", {
+	description = "Add map with default attribs",
 	params = "<name>",
 	privs = {bedwars_maps = true},
 	func = function(name, param)
@@ -50,19 +50,29 @@ minetest.register_chatcommand("map_template", {
 			mese4 = "100,100,100",
 		}
 		bedwars.map_add(template)
-		return true, "Template added, please modify the attributes now with /map_modify"
+		return true, "Map added, please modify the attributes now with /map_modify"
 	end,
 })
 
 minetest.register_chatcommand("map_modify", {
 	description = "Modify map attributes",
-	params = "<map_name> <attrib_name>",
+	params = "<map_name> <attrib_name> [<x>,<y>,<z>]",
 	privs = {bedwars_maps = true},
 	func = function(name, param)
 		local map_name = param:split(" ")[1]
 		local key = param:split(" ")[2]
+		local value = param:split(" ")[3]
 		if not map_name or not key then return false, "Invalid arguments" end
-		bedwars.maps[map_name][key] = minetest.pos_to_string(minetest.get_player_by_name(name):get_pos())
+		local valid = false
+		local valid_attribs = {"red", "green", "blue", "yellow", "diamond1", "diamond2", "diamond3", "diamond4", "mese1", "mese2", "mese3", "mese4"}
+		for _, v in ipairs(valid_attribs) do
+			if key == v then
+				valid = true
+				break
+			end
+		end
+		
+		bedwars.maps[map_name][key] = value or minetest.pos_to_string(minetest.get_player_by_name(name):get_pos())
 		return true, "Attribute changed to current position"
 	end,
 })
