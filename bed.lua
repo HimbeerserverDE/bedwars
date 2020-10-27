@@ -15,7 +15,7 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 			max_hear_distance = 100,
 			gain = 2.0,
 		})
-		minetest.add_node(pos, "beds:bed_bottom")
+		minetest.add_node(pos, {name = "beds:bed_bottom"})
 		bedwars.ui_update()
 	end
 end)
