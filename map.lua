@@ -62,6 +62,7 @@ minetest.register_chatcommand("map_modify", {
 		local map_name = param:split(" ")[1]
 		local key = param:split(" ")[2]
 		local value = param:split(" ")[3]
+		if not minetest.string_to_pos(value) then return false, "Invalid arguments" end
 		if not map_name or not key then return false, "Invalid arguments" end
 		local valid = false
 		local valid_attribs = {"red", "green", "blue", "yellow", "diamond1", "diamond2", "diamond3", "diamond4", "mese1", "mese2", "mese3", "mese4"}
