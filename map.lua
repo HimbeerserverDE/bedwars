@@ -27,6 +27,45 @@ bedwars.get_map_by_name = function(name)
 	end
 end
 
+minetest.register_chatcommand("map_template", {
+	description = "Add map template",
+	params = "<name>",
+	privs = {bedwars_maps = true},
+	func = function(name, param)
+		if not param or param == "" then return false, "Invalid arguments" end
+		if bedwars.map_exists(params.name) then return false, "Map with same name already exists" end
+		local template = {
+			name = param,
+			red = "100,100,100",
+			green = "100,100,100",
+			blue = "100,100,100",
+			yellow = "100,100,100",
+			diamond1 = "100,100,100",
+			diamond2 = "100,100,100",
+			diamond3 = "100,100,100",
+			diamond4 = "100,100,100",
+			mese1 = "100,100,100",
+			mese2 = "100,100,100",
+			mese3 = "100,100,100",
+			mese4 = "100,100,100",
+		}
+		bedwars.map_add(template)
+		return true, "Template added, please modify the attributes now with /map_modify"
+	end,
+})
+
+minetest.register_chatcommand("map_modify", {
+	description = "Modify map attributes",
+	params = "<map_name> <attrib_name>",
+	privs = {bedwars_maps = true},
+	func = function(name, param)
+		local map_name = param:split(" ")[1], key = param:split(" ")[2]
+		if not map_name or not key then return false, "Invalid arguments" end
+		bedwars.maps[map_name][key] = minetest.pos_to_string(minetest.get_player_by_name(name):get_pos())
+		return true, "Attribute changed to current position"
+	end,
+})
+
 minetest.register_chatcommand("map_add", {
 	description = "Add a map",
 	params = "<name> <red_x,red_y,red_z> <green_x,green_y,green_z> <blue_x,blue_y,blue_z> <yellow_x,yellow_y,yellow_z> <diamond1_x,diamond1_y,diamond1_z> <diamond2_x,diamond2_y,diamond2_z> <diamond3_x,diamond3_y,diamond3_z> <diamond4_x,diamond4_y,diamond4_z> <mese1_x,mese1_y,mese1_z> <mese2_x,mese2_y,mese2_z> <mese3_x,mese3_y,mese3_z> <mese4_x,mese4_y,mese4_z>",
