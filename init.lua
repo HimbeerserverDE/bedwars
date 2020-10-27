@@ -11,6 +11,8 @@ bedwars.log = function(msg)
 	minetest.log("action", "[bedwars] " .. msg)
 end
 
+dofile(mp .. "/map.lua")
+
 local maps = {}
 for _, map in ipairs(bedwars.maps) do
 	table.insert(maps, map.name)
@@ -18,7 +20,6 @@ end
 
 if #maps > 0 then
 	dofile(mp .. "/shop.lua")
-	dofile(mp .. "/map.lua")
 	dofile(mp .. "/team.lua")
 	dofile(mp .. "/ui.lua")
 	dofile(mp .. "/bed.lua")
