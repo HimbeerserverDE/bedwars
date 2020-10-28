@@ -33,7 +33,7 @@ minetest.register_chatcommand("map_default", {
 	privs = {bedwars_maps = true},
 	func = function(name, param)
 		if not param or param == "" then return false, "Invalid arguments" end
-		if bedwars.map_exists(params.name) then return false, "Map with same name already exists" end
+		if bedwars.map_exists(param) then return false, "Map with same name already exists" end
 		local template = {
 			name = param,
 			red = "100,100,100",
