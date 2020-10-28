@@ -8,6 +8,14 @@ end
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	if oldnode.name == "beds:bed_bottom" then
 		minetest.set_node(pos, {name = "beds:bed_bottom", param2 = oldnode.param2})
+		local inv = digger:get_inventory()
+		for k, v in pairs(inv:get_lists()) do
+			minetest.after(0, function(t)
+				local itemstack = ItemStack("beds:bed")
+				itemstack:set_count(99)
+				t.inv:remove_item(t.k, itemstack)
+			end, {k = k, inv = inv})
+		end
 		if bedwars.get_team_by_pos(pos) == bedwars.get_player_team(digger:get_player_name()) then
 			minetest.chat_send_player(digger:get_player_name(), "You can't destroy your own bed")
 			return
