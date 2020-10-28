@@ -8,6 +8,10 @@ end
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	if oldnode.name == "beds:bed_bottom" then
 		minetest.set_node(pos, {name = "beds:bed_bottom", param2 = oldnode.param2})
+		if bedwars.get_team_by_pos(pos) == bedwars.get_player_team(digger:get_player_name()) then
+			minetest.chat_send_player(digger:get_player_name(), "You can't destroy your own bed")
+			return
+		end
 		if not bedwars.beds[bedwars.get_team_by_pos(pos)] then return end
 		bedwars.beds[bedwars.get_team_by_pos(pos)] = false
 		minetest.chat_send_all("Team " .. minetest.colorize(bedwars.str_to_colour(bedwars.get_team_by_pos(pos)), bedwars.get_team_by_pos(pos)) .. "'s bed has been destroyed by " .. digger:get_player_name())
