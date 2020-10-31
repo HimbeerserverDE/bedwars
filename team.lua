@@ -56,10 +56,10 @@ bedwars.get_team_by_pos = function(pos)
 	local team_pos_table = {red = minetest.string_to_pos(map.red), green = minetest.string_to_pos(map.green), blue = minetest.string_to_pos(map.blue), yellow = minetest.string_to_pos(map.yellow)}
 	local diffs = {}
 	for team, teampos in pairs(team_pos_table) do
-		local diff = {x = math.abs(pos.x - teampos.x), y = math.abs(pos.y - teampos.y), z = math.abs(pos.z - teampos.z)}
+		local diff = {x = math.abs(math.abs(pos.x) - math.abs(teampos.x)), y = math.abs(math.abs(pos.y) - math.abs(teampos.y)), z = math.abs(math.abs(pos.z) - math.abs(teampos.z))}
 		diffs[team] = diff
 	end
-	local smallest = {x = 100, z = 100}
+	local smallest = {x = 300, z = 300}
 	for team, diff in pairs(diffs) do
 		if diff.x < smallest.x and diff.z < smallest.z then
 			smallest.x = diff.x
