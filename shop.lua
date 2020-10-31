@@ -160,6 +160,17 @@ minetest.register_node("bedwars:shop_team", {
 			end
 			wielded:set_count(wielded:get_count() - 2)
 			bedwars.upgrades[team].sharpness = true
+		elseif fields.dragonbuff then
+			if bedwars.upgrades[team].dragonbuff then
+				minetest.chat_send_player(sender:get_player_name(), "The dragon buff upgrade is already active")
+				return
+			end
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 5 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 5 diamonds to activate this upgrade")
+				return
+			end
+			wielded:set_count(wielded:get_count() - 5)
+			bedwars.upgrades[team].dragonbuff = true
 		end
 		sender:set_wielded_item(wielded)
 	end,
