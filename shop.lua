@@ -91,7 +91,6 @@ minetest.register_node("bedwars:shop_item", {
 			wielded:set_count(wielded:get_count() - 24)
 			itemstack:set_count(1)
 			itemstack:set_name("default:pick_diamond")
-		end
 		elseif fields.wool then
 			if wielded:get_name() ~= "default:steel_ingot" or wielded:get_count() < 4 then
 				minetest.chat_send_player(sender:get_player_name(), "Wield 4 steel to buy this item")
@@ -274,7 +273,7 @@ minetest.register_abm({
 		local objs = minetest.get_objects_inside_radius(pos, 7)
 		for _, obj in ipairs(objs) do
 			if obj:is_player() and bedwars.get_player_team(obj:get_player_name()) == team then
-				obj:set_hp(obj:get_hp + 1)
+				obj:set_hp(obj:get_hp() + 1)
 			end
 		end
 	end,
