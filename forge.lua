@@ -38,30 +38,50 @@ minetest.register_globalstep(function(dtime)
 	end
 end)
 
--- TODO: Add team upgrades
-
-local steel_timer = 0
+local steel_timer = {red = 0, green = 0, blue = 0, yellow = 0}
 minetest.register_globalstep(function(dtime)
-	steel_timer = steel_timer + dtime
-	if steel_timer >= 1 then
-		local map = bedwars.get_map_by_name(bedwars.current_map)
-		local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
-		for _, pos in ipairs(forges) do
+	for k, v in pairs(steel_timer) do
+		steel_timer[k] = v + dtime
+	end
+	local map = bedwars.get_map_by_name(bedwars.current_map)
+	local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
+	for _, pos in ipairs(forges) do
+		local team = bedwars.get_team_by_pos(pos)
+		if steel_timer[team] >= (5 - bedwars.upgrades[team].forge) then
 			minetest.add_item(pos, "default:steel_ingot")
+			steel_timer[team] = 0
 		end
-		steel_timer = 0
 	end
 end)
 
-local gold_timer = 0
+local gold_timer = {red = 0, green = 0, blue = 0, yellow = 0}
 minetest.register_globalstep(function(dtime)
-	gold_timer = gold_timer + dtime
-	if gold_timer >= 15 then
-		local map = bedwars.get_map_by_name(bedwars.current_map)
-		local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
-		for _, pos in ipairs(forges) do
+	for k, v in pairs(gold_timer) do
+		gold_timer[k] = v + dtime
+	end
+	local map = bedwars.get_map_by_name(bedwars.current_map)
+	local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
+	for _, pos in ipairs(forges) do
+		local team = bedwars.get_team_by_pos(pos)
+		if steel_timer[team] >= (9 - bedwars.upgrades[team].forge) then
 			minetest.add_item(pos, "default:gold_ingot")
+			gold_timer[team] = 0
 		end
-		gold_timer = 0
+	end
+end)
+
+local team_mese_timer = {red = 0, green = 0, blue = 0, yellow = 0}
+minetest.register_globalstep(function(dtime)
+	for k, v in pairs(team_mese_timer) do
+		team_mese_timer[k] = v + dtime
+	end
+	local map = bedwars.get_map_by_name(bedwars.current_map)
+	local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
+	for _, pos in ipairs(forges) do
+		local team = bedwars.get_team_by_pos(pos)
+		if team_mese_timer[team] >= 30 and bedwars.upgrades[team].forge >= 3 then
+			minetest.add_item(pos, "default:mese_crystal " .. tostring(bedwars.upgrades[team].forge - 2))
+			team_mese_timer[team] = 0
+		end
 	end
 end)

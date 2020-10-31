@@ -1,3 +1,5 @@
+bedwars.upgrades = {red = {}, green = {}, blue = {}, yellow = {}}
+
 bedwars.item_shop_fs = "size[5,5]" ..
 "item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]" ..
 "item_image_button[1,2;1,1;bow:bow_empty;bow;]item_image_button[2,2;1,1;bow:arrow;arrow;]" ..
@@ -134,7 +136,21 @@ minetest.register_node("bedwars:shop_team", {
 		minetest.get_meta(pos):set_string("formspec", bedwars.team_shop_fs)
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
-		
+		local wielded = sender:get_wielded_item()
+		local team = bedwars.get_player_team(sender:get_player_team())
+		if fields.forge then
+			if bedwars.upgrades[team].forge >= 4 then
+				minetest.chat_send_player(sender:get_player_name(), "The maximum forge upgrade is already active")
+				return
+			end
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ (bedwars.upgrades[team].forge + 1)) then
+				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ (bedwars.upgrades[team].forge + 1)) .. " diamonds to activate this upgrade")
+				return
+			end
+			wielded:set_count(wielded:get_count() - (2 ^ (bedwars.upgrades[team].forge + 1)))
+			bedwars.upgrades[team].forge = bedwars.upgrades[team].forge + 1
+		end
+		sender:set_wielded_item(wielded)
 	end,
 })
 
