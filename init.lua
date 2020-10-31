@@ -31,8 +31,27 @@ if #maps > 0 then
 	bedwars.current_map = maps[math.random(1, #maps)]
 	
 	minetest.register_on_joinplayer(function(player)
-		if not bedwars.init then bedwars.init = true end
-		bedwars.event_timer_start()
+		if not bedwars.init then
+			bedwars.init = true
+			bedwars.event_timer_start()
+			minetest.clear_objects({mode = "full"})
+		end
+		local inv = player:get_inventory()
+		for k, v in pairs(inv:get_lists()) do
+			inv:set_list(k, {})
+		end
+	end)
+	
+	minetest.register_on_dieplayer(function(player)
+		local inv = player:get_inventory()
+		for k, v in pairs(inv:get_lists()) do
+			for _, itemstack in ipairs(v) do
+				minetest.add_item(player:get_pos(), itemstack)
+			end
+		end
+		for k, v in pairs(inv:get_lists()) do
+			inv:set_list(k, {})
+		end
 	end)
 end
 
