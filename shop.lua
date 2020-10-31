@@ -182,6 +182,17 @@ minetest.register_node("bedwars:shop_team", {
 			end
 			wielded:set_count(wielded:get_count() - (2 ^ (bedwars.upgrades[team].armour + 2)))
 			bedwars.upgrades[team].armour = (bedwars.upgrades[team].armour or 0) + 1
+		elseif fields.trap then
+			if bedwars.upgrades[team].trap then
+				minetest.chat_send_player(sender:get_player_name(), "The trap upgrade is already active")
+				return
+			end
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 1 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 1 diamond to activate this upgrade")
+				return
+			end
+			wielded:set_count(wielded:get_count() - 1)
+			bedwars.upgrades[team].trap = true
 		end
 		sender:set_wielded_item(wielded)
 	end,
@@ -203,3 +214,21 @@ minetest.register_on_punchplayer(function(player, hitter, time_from_last_punch, 
 	end
 	return true
 end)
+
+minetest.register_abm({
+	label = "trap",
+	nodenames = {"beds:bed_bottom"},
+	interval = 1,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local team = bedwars.get_team_by_pos(pos)
+		local objs = minetest.get_objects_inside_radius(pos, 7)
+		for _, obj in ipairs(objs) do
+			if obj:is_player() and bedwars.get_player_team(obj:get_player_name()) ~= team then
+				for _, name in ipairs(bedwars.teams[team]) do
+					minetest.chat_send_player(name, "Your trap has been set off")
+				end
+			end
+		end
+	end,
+})
