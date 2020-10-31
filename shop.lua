@@ -171,6 +171,17 @@ minetest.register_node("bedwars:shop_team", {
 			end
 			wielded:set_count(wielded:get_count() - 5)
 			bedwars.upgrades[team].dragonbuff = true
+		elseif fields.armour then
+			if bedwars.upgrades[team].armour >= 4 then
+				minetest.chat_send_player(sender:get_player_name(), "The maximum armour upgrade is already active")
+				return
+			end
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ (bedwars.upgrades[team].armour + 2)) then
+				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ (bedwars.upgrades[team].armour + 2)) .. " diamonds to activate this upgrade")
+				return
+			end
+			wielded:set_count(wielded:get_count() - (2 ^ (bedwars.upgrades[team].armour + 2)))
+			bedwars.upgrades[team].armour = (bedwars.upgrades[team].armour or 0) + 1
 		end
 		sender:set_wielded_item(wielded)
 	end,
@@ -184,7 +195,11 @@ end)
 
 minetest.register_on_punchplayer(function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
 	if bedwars.upgrades[bedwars.get_player_team(hitter:get_player_name())].sharpness then
-		player:set_hp(player:get_hp() - damage - 4)
-		return true
+		player:set_hp(player:get_hp() - damage - 4 + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour)
+	else
+		if player:get_hp() - damage + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour < player:get_hp() then
+			player:set_hp(player:get_hp() - damage + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour)
+		end
 	end
+	return true
 end)
