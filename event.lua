@@ -1,4 +1,4 @@
-bedwars.events = {3, 3, 3, 3, 6, 6, 6, 6, 600}
+bedwars.events = {300, 300, 300, 300, 600, 600, 600}
 bedwars.event_list = {"dia2", "mese2", "dia3", "mese3", "bed", "sudden_death", "game_end"}
 bedwars.event_msg = {
 	"Diamond generators have been upgraded to Tier 2",
