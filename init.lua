@@ -55,4 +55,4 @@ if #maps > 0 then
 	end)
 end
 
-bedwars.log("[bedwars] Loaded mod")
+bedwars.log("Loaded mod")
