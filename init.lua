@@ -26,6 +26,7 @@ if #maps > 0 then
 	dofile(mp .. "/event.lua")
 	dofile(mp .. "/forge.lua")
 	dofile(mp .. "/dragon.lua")
+	dofile(mp .. "/chest.lua")
 	
 	math.randomseed(os.clock())
 	bedwars.current_map = maps[math.random(1, #maps)]
