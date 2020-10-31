@@ -20,11 +20,11 @@ end)
 
 local mese_timer = 0
 minetest.register_globalstep(function(dtime)
-	local wait = 45
+	local wait = 75
 	if bedwars.event >= 4 then
-		wait = 15
+		wait = 45
 	elseif bedwars.event >= 2 then
-		wait = 30
+		wait = 60
 	end
 	
 	mese_timer = mese_timer + dtime
@@ -79,7 +79,7 @@ minetest.register_globalstep(function(dtime)
 	local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
 	for _, pos in ipairs(forges) do
 		local team = bedwars.get_team_by_pos(pos)
-		if team_mese_timer[team] >= 30 and (bedwars.upgrades[team].forge or 0) >= 3 then
+		if team_mese_timer[team] >= 90 and (bedwars.upgrades[team].forge or 0) >= 3 then
 			minetest.add_item(pos, "default:mese_crystal " .. tostring(bedwars.upgrades[team].forge - 2))
 			team_mese_timer[team] = 0
 		end
