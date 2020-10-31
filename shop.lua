@@ -232,11 +232,11 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
 end)
 
 minetest.register_on_punchplayer(function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
-	if bedwars.upgrades[bedwars.get_player_team(hitter:get_player_name())].sharpness then
+	if hitter:is_player() and bedwars.upgrades[bedwars.get_player_team(hitter:get_player_name())].sharpness then
 		player:set_hp(player:get_hp() - damage - 4 + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour)
 	else
-		if player:get_hp() - damage + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour < player:get_hp() then
-			player:set_hp(player:get_hp() - damage + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour)
+		if player:get_hp() - damage + (bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour or 0) < player:get_hp() then
+			player:set_hp(player:get_hp() - damage + (bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour or 0))
 		end
 	end
 	return true
