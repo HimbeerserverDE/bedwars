@@ -65,7 +65,9 @@ if #maps > 0 then
 			end
 		end
 		for k, v in pairs(inv:get_lists()) do
-			inv:set_list(k, {})
+			if k ~= "ec" then
+				inv:set_list(k, {})
+			end
 		end
 	end)
 end
