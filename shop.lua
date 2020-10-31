@@ -1,6 +1,6 @@
 bedwars.upgrades = {red = {}, green = {}, blue = {}, yellow = {}}
 
-bedwars.item_shop_fs = "size[6,5]" ..
+bedwars.item_shop_fs = "size[6,6]" ..
 "item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]" ..
 "item_image_button[1,2;1,1;bow:bow_empty;bow;]item_image_button[2,2;1,1;bow:arrow;arrow;]" ..
 "item_image_button[1,3;1,1;default:apple;apple;]item_image_button[2,3;1,1;tnt:tnt;tnt;]item_image_button[3,3;1,1;default:pick_steel;steelpick;]item_image_button[4,3;1,1;default:pick_diamond;diamondpick;]" ..
