@@ -47,6 +47,9 @@ if #maps > 0 then
 								if node.name:find("wool:", nil, true) or node.name == "default:tinblock" or node.name == "default:wood" then
 									minetest.set_node(pos, {name = "air"})
 								end
+								if node.name == "bedwars:chest" then
+									minetest.get_inventory({type = "node", pos = pos}):set_list("tc", {})
+								end
 							end
 						end
 					end
