@@ -3,8 +3,8 @@ bedwars.upgrades = {red = {}, green = {}, blue = {}, yellow = {}}
 bedwars.item_shop_fs = "size[5,5]" ..
 "item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]" ..
 "item_image_button[1,2;1,1;bow:bow_empty;bow;]item_image_button[2,2;1,1;bow:arrow;arrow;]" ..
-"item_image_button[1,3;1,1;default:apple;apple;]item_image_button[2,3;1,1;tnt:tnt;tnt;]item_image_button[3,3;1,1;default:pick_steel;steelpick;]" ..
-"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:tinblock;tin;]"
+"item_image_button[1,3;1,1;default:apple;apple;]item_image_button[2,3;1,1;tnt:tnt;tnt;]item_image_button[3,3;1,1;default:pick_steel;steelpick;]item_image_button[4,3;1,1;default:pick_diamond;diamondpick;]" ..
+"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:tinblock;tin;]item_image_button[3,4;1,1;default:wood;wood;]"
 
 minetest.register_node("bedwars:shop_item", {
 	description = "Item shop",
@@ -33,7 +33,6 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 3)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_steel")
 		elseif fields.diamondsword then
@@ -42,7 +41,6 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 3)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_diamond")
 		elseif fields.bow then
@@ -51,7 +49,6 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 8)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(1)
 			itemstack:set_name("bow:bow_empty")
 		elseif fields.arrow then
@@ -60,7 +57,6 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 4)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(16)
 			itemstack:set_name("bow:arrow")
 		elseif fields.apple then
@@ -69,7 +65,6 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 2)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(1)
 			itemstack:set_name("default:apple")
 		elseif fields.tnt then
@@ -78,7 +73,6 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 5)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(1)
 			itemstack:set_name("tnt:tnt")
 		elseif fields.steelpick then
@@ -87,16 +81,23 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 10)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(1)
 			itemstack:set_name("default:pick_steel")
+		elseif fields.diamondpick then
+			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 24 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 24 gold to buy this item")
+				return
+			end
+			wielded:set_count(wielded:get_count() - 24)
+			itemstack:set_count(1)
+			itemstack:set_name("default:pick_diamond")
+		end
 		elseif fields.wool then
 			if wielded:get_name() ~= "default:steel_ingot" or wielded:get_count() < 4 then
 				minetest.chat_send_player(sender:get_player_name(), "Wield 4 steel to buy this item")
 				return
 			end
 			wielded:set_count(wielded:get_count() - 4)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(16)
 			itemstack:set_name("wool:" .. bedwars.get_player_team(sender:get_player_name()))
 		elseif fields.tin then
@@ -105,10 +106,18 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 4)
-			sender:set_wielded_item(wielded)
 			itemstack:set_count(8)
 			itemstack:set_name("default:tinblock")
+		elseif fields.wood then
+			if wielded:get_name() ~= "default:steel_ingot" or wielded:get_count() < 32 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 32 steel to buy this item")
+				return
+			end
+			wielded:set_count(wielded:get_count() - 32)
+			itemstack:set_count(16)
+			itemstack:set_name("default:wood")
 		end
+		sender:set_wielded_item(wielded)
 		sender:get_inventory():add_item("main", itemstack)
 	end,
 })
