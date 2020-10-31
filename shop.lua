@@ -188,15 +188,15 @@ minetest.register_node("bedwars:shop_team", {
 			wielded:set_count(wielded:get_count() - 5)
 			bedwars.upgrades[team].dragonbuff = true
 		elseif fields.armour then
-			if bedwars.upgrades[team].armour >= 4 then
+			if (bedwars.upgrades[team].armour or 0) >= 4 then
 				minetest.chat_send_player(sender:get_player_name(), "The maximum armour upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ (bedwars.upgrades[team].armour + 2)) then
-				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ (bedwars.upgrades[team].armour + 2)) .. " diamonds to activate this upgrade")
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ ((bedwars.upgrades[team].armour or 0) + 2)) then
+				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ ((bedwars.upgrades[team].armour or 0) + 2)) .. " diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - (2 ^ (bedwars.upgrades[team].armour + 2)))
+			wielded:set_count(wielded:get_count() - (2 ^ ((bedwars.upgrades[team].armour or 0) + 2)))
 			bedwars.upgrades[team].armour = (bedwars.upgrades[team].armour or 0) + 1
 		elseif fields.trap then
 			if bedwars.upgrades[team].trap then
@@ -250,12 +250,12 @@ minetest.register_abm({
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local team = bedwars.get_team_by_pos(pos)
 		if not bedwars.upgrades[team].trap then return end
-		bedwars.upgrades[team].trap = false
 		local objs = minetest.get_objects_inside_radius(pos, 7)
 		for _, obj in ipairs(objs) do
 			if obj:is_player() and bedwars.get_player_team(obj:get_player_name()) ~= team then
 				for _, name in ipairs(bedwars.teams[team]) do
 					minetest.chat_send_player(name, "Your trap has been set off")
+					bedwars.upgrades[team].trap = false
 				end
 			end
 		end

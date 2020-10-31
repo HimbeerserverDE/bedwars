@@ -63,7 +63,7 @@ minetest.register_globalstep(function(dtime)
 	local forges = {minetest.string_to_pos(map.red), minetest.string_to_pos(map.green), minetest.string_to_pos(map.blue), minetest.string_to_pos(map.yellow)}
 	for _, pos in ipairs(forges) do
 		local team = bedwars.get_team_by_pos(pos)
-		if steel_timer[team] >= (9 - (bedwars.upgrades[team].forge or 0)) then
+		if gold_timer[team] >= (9 - (bedwars.upgrades[team].forge or 0)) then
 			minetest.add_item(pos, "default:gold_ingot")
 			gold_timer[team] = 0
 		end
