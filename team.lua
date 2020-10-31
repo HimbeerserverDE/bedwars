@@ -27,6 +27,10 @@ end
 bedwars.assign_team = function(name)
 	local team = bedwars.get_smallest_team()
 	table.insert(bedwars.teams[team], name)
+	local player = minetest.get_player_by_name(name)
+	if player then
+		player:set_pos(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map)[bedwars.get_player_team(player:get_player_name())]))
+	end
 end
 
 bedwars.get_player_team = function(name)
