@@ -153,17 +153,17 @@ minetest.register_node("bedwars:shop_team", {
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
 		local wielded = sender:get_wielded_item()
-		local team = bedwars.get_player_team(sender:get_player_team())
+		local team = bedwars.get_player_team(sender:get_player_name())
 		if fields.forge then
-			if bedwars.upgrades[team].forge >= 4 then
+			if (bedwars.upgrades[team].forge or 0) >= 4 then
 				minetest.chat_send_player(sender:get_player_name(), "The maximum forge upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ (bedwars.upgrades[team].forge + 1)) then
-				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ (bedwars.upgrades[team].forge + 1)) .. " diamonds to activate this upgrade")
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ ((bedwars.upgrades[team].forge or 0) + 1)) then
+				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ ((bedwars.upgrades[team].forge or 0) + 1)) .. " diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - (2 ^ (bedwars.upgrades[team].forge + 1)))
+			wielded:set_count(wielded:get_count() - (2 ^ ((bedwars.upgrades[team].forge or 0) + 1)))
 			bedwars.upgrades[team].forge = (bedwars.upgrades[team].forge or 0) + 1
 		elseif fields.sharpness then
 			if bedwars.upgrades[team].sharpness then
