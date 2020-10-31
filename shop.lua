@@ -193,6 +193,17 @@ minetest.register_node("bedwars:shop_team", {
 			end
 			wielded:set_count(wielded:get_count() - 1)
 			bedwars.upgrades[team].trap = true
+		elseif fields.healpool then
+			if bedwars.upgrades[team].healpool then
+				minetest.chat_send_player(sender:get_player_name(), "The healpool upgrade is already active")
+				return
+			end
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 3 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 3 diamonds to activate this upgrade")
+				return
+			end
+			wielded:set_count(wielded:get_count() - 3)
+			bedwars.upgrades[team].healpool = true
 		end
 		sender:set_wielded_item(wielded)
 	end,
@@ -222,12 +233,31 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local team = bedwars.get_team_by_pos(pos)
+		if not bedwars.upgrades[team].trap then return end
+		bedwars.upgrades[team].trap = false
 		local objs = minetest.get_objects_inside_radius(pos, 7)
 		for _, obj in ipairs(objs) do
 			if obj:is_player() and bedwars.get_player_team(obj:get_player_name()) ~= team then
 				for _, name in ipairs(bedwars.teams[team]) do
 					minetest.chat_send_player(name, "Your trap has been set off")
 				end
+			end
+		end
+	end,
+})
+
+minetest.register_abm({
+	label = "healpool",
+	nodenames = {"beds:bed_bottom"},
+	interval = 3,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local team = bedwars.get_team_by_pos(pos)
+		if not bedwars.upgrades[team].healpool then return end
+		local objs = minetest.get_objects_inside_radius(pos, 7)
+		for _, obj in ipairs(objs) do
+			if obj:is_player() and bedwars.get_player_team(obj:get_player_name()) == team then
+				obj:set_hp(obj:get_hp + 1)
 			end
 		end
 	end,
