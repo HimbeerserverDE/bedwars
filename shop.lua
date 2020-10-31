@@ -1,8 +1,8 @@
-bedwars.item_shop_fs = "size[7,9]" ..
-"item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[3,1;1,1;default:sword_diamond;diamondsword;]" ..
-"item_image_button[1,3;1,1;bow:bow_empty;bow;]item_image_button[3,3;1,1;bow:arrow;arrow;]" ..
-"item_image_button[1,5;1,1;default:apple;apple;]item_image_button[3,5;1,1;tnt:tnt;tnt;]item_image_button[5,5;1,1;default:pick_steel;steelpick;]" ..
-"item_image_button[1,7;1,1;wool:white;wool;]item_image_button[3,7;1,1;default:tinblock;tin;]"
+bedwars.item_shop_fs = "size[5,5]" ..
+"item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]" ..
+"item_image_button[1,2;1,1;bow:bow_empty;bow;]item_image_button[2,2;1,1;bow:arrow;arrow;]" ..
+"item_image_button[1,3;1,1;default:apple;apple;]item_image_button[2,3;1,1;tnt:tnt;tnt;]item_image_button[3,3;1,1;default:pick_steel;steelpick;]" ..
+"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:tinblock;tin;]"
 
 minetest.register_node("bedwars:shop_item", {
 	description = "Item shop",
@@ -118,6 +118,10 @@ minetest.register_node("bedwars:shop_item", {
 		sender:get_inventory():add_item("main", itemstack)
 	end,
 })
+
+bedwars.team_shop_fs = "size[5,4]" ..
+"item_image_button[1,1;1,1;default:furnace;forge;]item_image_button[2,1;1,1;default:sword_steel;sharpness;]item_image_button[3,1;1,1;default:flint;dragonbuff;]" ..
+"item_image_button[1,2;1,1;default:brick;armour;]item_image_button[2,2;1,1;doors:trapdoor_steel;trap;]item_image_button[3,2;1,1;default:meselamp;healpool;]"
 
 minetest.register_node("bedwars:shop_team", {
 	description = "Team shop",
