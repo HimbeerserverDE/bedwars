@@ -36,20 +36,22 @@ if #maps > 0 then
 			bedwars.init = true
 			bedwars.event_timer_start()
 			minetest.clear_objects({mode = "quick"})
-			for _, attr in pairs(bedwars.get_map_by_name(bedwars.current_map)) do
-				local centre = minetest.string_to_pos(attr) or player:get_pos()
-				for x = centre.x - 30, centre.x + 30 do
-					for y = centre.y - 30, centre.y + 30 do
-						for z = centre.z - 30, centre.z + 30 do
-							local pos = {x = x, y = y, z = z}
-							local node = minetest.get_node(pos)
-							if node.name:find("wool:", nil, true) or node.name == "default:tinblock" or node.name == "default:wood" then
-								minetest.set_node(pos, {name = "air"})
+			minetest.after(5, function(player)
+				for _, attr in pairs(bedwars.get_map_by_name(bedwars.current_map)) do
+					local centre = minetest.string_to_pos(attr) or player:get_pos()
+					for x = centre.x - 30, centre.x + 30 do
+						for y = centre.y - 30, centre.y + 30 do
+							for z = centre.z - 30, centre.z + 30 do
+								local pos = {x = x, y = y, z = z}
+								local node = minetest.get_node(pos)
+								if node.name:find("wool:", nil, true) or node.name == "default:tinblock" or node.name == "default:wood" then
+									minetest.set_node(pos, {name = "air"})
+								end
 							end
 						end
 					end
 				end
-			end
+			end, player)
 		end
 		local inv = player:get_inventory()
 		for k, v in pairs(inv:get_lists()) do
