@@ -148,7 +148,18 @@ minetest.register_node("bedwars:shop_team", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - (2 ^ (bedwars.upgrades[team].forge + 1)))
-			bedwars.upgrades[team].forge = bedwars.upgrades[team].forge + 1
+			bedwars.upgrades[team].forge = (bedwars.upgrades[team].forge or 0) + 1
+		elseif fields.sharpness then
+			if bedwars.upgrades[team].sharpness then
+				minetest.chat_send_player(sender:get_player_name(), "The sharpness upgrade is already active")
+				return
+			end
+			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 2 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 2 diamonds to activate this upgrade")
+				return
+			end
+			wielded:set_count(wielded:get_count() - 2)
+			bedwars.upgrades[team].sharpness = true
 		end
 		sender:set_wielded_item(wielded)
 	end,
@@ -157,5 +168,12 @@ minetest.register_node("bedwars:shop_team", {
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
 	if newnode and newnode.name == "tnt:tnt" then
 		tnt.burn(pos)
+	end
+end)
+
+minetest.register_on_punchplayer(function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
+	if bedwars.upgrades[bedwars.get_player_team(hitter:get_player_name())].sharpness then
+		player:set_hp(player:get_hp() - damage - 4)
+		return true
 	end
 end)
