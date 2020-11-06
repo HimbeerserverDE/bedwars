@@ -233,13 +233,14 @@ end)
 
 minetest.register_on_punchplayer(function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
 	if hitter:is_player() and bedwars.upgrades[bedwars.get_player_team(hitter:get_player_name())].sharpness then
-		player:set_hp(player:get_hp() - damage - 4 + bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour)
-	else
+		player:set_hp(player:get_hp() - damage - 4 + (bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour or 0))
+		return true
+	elseif not hitter:is_player() then
 		if player:get_hp() - damage + (bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour or 0) < player:get_hp() then
 			player:set_hp(player:get_hp() - damage + (bedwars.upgrades[bedwars.get_player_team(player:get_player_name())].armour or 0))
+			return true
 		end
 	end
-	return true
 end)
 
 minetest.register_abm({
