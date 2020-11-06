@@ -9,7 +9,7 @@ bedwars.item_shop_fs = "size[6,6]" ..
 minetest.register_node("bedwars:shop_item", {
 	description = "Item shop",
 	drawtype = "nodebox",
-	tiles = {"shop_item.png"},
+	tiles = {"shop_item_side.png", "shop_item_side.png",  "shop_item_side.png",  "shop_item_side.png",  "shop_item_side.png", "shop_item_front.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	is_ground_content = false,
@@ -136,7 +136,7 @@ bedwars.team_shop_fs = "size[5,4]" ..
 minetest.register_node("bedwars:shop_team", {
 	description = "Team shop",
 	drawtype = "nodebox",
-	tiles = {"shop_team.png"},
+	tiles = {"shop_team_side.png",  "shop_team_side.png",  "shop_team_side.png",  "shop_team_side.png",  "shop_team_side.png", "shop_team_front.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	is_ground_content = false,
