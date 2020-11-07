@@ -17,7 +17,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
-	if not minetest.check_player_privs(placer:get_player_name(), {build = true}) and not bedwars.is_buyable_node(oldnode) then
+	if not minetest.check_player_privs(placer:get_player_name(), {build = true}) and not bedwars.is_buyable_node(newnode) then
 		minetest.set_node(pos, oldnode)
 		minetest.chat_send_player(placer:get_player_name(), "You can't place this node.")
 		return itemstack
