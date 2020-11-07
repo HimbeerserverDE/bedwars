@@ -1,4 +1,4 @@
-bedwars.buyable_nodes = {"wool:red", "wool:green", "wool:blue", "wool:yellow", "default:wood", "default:obsidian"}
+bedwars.buyable_nodes = {"wool:red", "wool:green", "wool:blue", "wool:yellow", "default:wood", "default:obsidian", "beds:bed_bottom"}
 
 bedwars.is_buyable_node = function(node)
 	for _, bnode in ipairs(bedwars.buyable_nodes) do
