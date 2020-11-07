@@ -33,6 +33,7 @@ if #maps > 0 then
 	bedwars.current_map = maps[math.random(1, #maps)]
 	
 	minetest.register_on_joinplayer(function(player)
+		player:set_hp(20)
 		if not bedwars.init then
 			bedwars.init = true
 			bedwars.event_timer_start()
