@@ -27,100 +27,125 @@ minetest.register_node("bedwars:shop_item", {
 	on_receive_fields = function(pos, formname, fields, sender)
 		local itemstack = ItemStack("")
 		local wielded = sender:get_wielded_item()
+		local reqstack = ItemStack("")
 		if fields.steelsword then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 7 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 7 gold to buy this item")
+			reqstack:set_count(7)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 7 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 7)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_steel")
 		elseif fields.diamondsword then
-			if wielded:get_name() ~= "default:mese_crystal" or wielded:get_count() < 3 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 3 mese to buy this item")
+			reqstack:set_count(3)
+			reqstack:set_name("default:mese_crystal")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 3 mese to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 3)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_diamond")
 		elseif fields.bow then
-			if wielded:get_name() ~= "default:mese_crystal" or wielded:get_count() < 8 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 8 mese to buy this item")
+			reqstack:set_count(8)
+			reqstack:set_name("default:mese_crystal")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 8 mese to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 8)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("bow:bow_empty")
 		elseif fields.arrow then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 4 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 4 gold to buy this item")
+			reqstack:set_count(4)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 4 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 4)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(8)
 			itemstack:set_name("bow:arrow")
 		elseif fields.apple then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 2 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 2 gold to buy this item")
+			reqstack:set_count(2)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 2 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 2)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:apple")
 		elseif fields.tnt then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 8 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 8 gold to buy this item")
+			reqstack:set_count(8)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 8 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 8)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("tnt:tnt")
 		elseif fields.steelpick then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 10 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 10 gold to buy this item")
+			reqstack:set_count(10)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 10 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 10)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:pick_steel")
 		elseif fields.diamondpick then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 24 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 24 gold to buy this item")
+			reqstack:set_count(24)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 24 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 24)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:pick_diamond")
 		elseif fields.wool then
-			if wielded:get_name() ~= "default:steel_ingot" or wielded:get_count() < 4 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 4 steel to buy this item")
+			reqstack:set_count(4)
+			reqstack:set_name("default:steel_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 4 steel to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 4)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(16)
 			itemstack:set_name("wool:" .. bedwars.get_player_team(sender:get_player_name()))
 		elseif fields.obsidian then
-			if wielded:get_name() ~= "default:mese_crystal" or wielded:get_count() < 4 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 4 mese to buy this item")
+			reqstack:set_count(4)
+			reqstack:set_name("default:mese_crystal")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 4 mese to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 4)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(4)
 			itemstack:set_name("default:obsidian")
 		elseif fields.wood then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 6 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 6 gold to buy this item")
+			reqstack:set_count(6)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 6 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 6)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(16)
 			itemstack:set_name("default:wood")
 		elseif fields.steelaxe then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 12 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 12 gold to buy this item")
+			reqstack:set_count(12)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 12 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 12)
+			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:axe_steel")
 		end
@@ -154,71 +179,79 @@ minetest.register_node("bedwars:shop_team", {
 	on_receive_fields = function(pos, formname, fields, sender)
 		local wielded = sender:get_wielded_item()
 		local team = bedwars.get_player_team(sender:get_player_name())
+		local reqstack = ItemStack("")
+		reqstack:set_name("default:diamond")
 		if fields.forge then
 			if (bedwars.upgrades[team].forge or 0) >= 4 then
 				minetest.chat_send_player(sender:get_player_name(), "The maximum forge upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ ((bedwars.upgrades[team].forge or 0) + 1)) then
-				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ ((bedwars.upgrades[team].forge or 0) + 1)) .. " diamonds to activate this upgrade")
+			reqstack:set_count(2 ^ ((bedwars.upgrades[team].forge or 0) + 1))
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(2 ^ ((bedwars.upgrades[team].forge or 0) + 1)) .. " diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - (2 ^ ((bedwars.upgrades[team].forge or 0) + 1)))
+			sender:get_inventory():remove_item("main", reqstack)
 			bedwars.upgrades[team].forge = (bedwars.upgrades[team].forge or 0) + 1
 		elseif fields.sharpness then
 			if bedwars.upgrades[team].sharpness then
 				minetest.chat_send_player(sender:get_player_name(), "The sharpness upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 2 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 2 diamonds to activate this upgrade")
+			reqstack:set_count(4)
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 4 diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 2)
+			sender:get_inventory():remove_item("main", reqstack)
 			bedwars.upgrades[team].sharpness = true
 		elseif fields.dragonbuff then
 			if bedwars.upgrades[team].dragonbuff then
 				minetest.chat_send_player(sender:get_player_name(), "The dragon buff upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 5 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 5 diamonds to activate this upgrade")
+			reqstack:set_count(5)
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 5 diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 5)
+			sender:get_inventory():remove_item("main", reqstack)
 			bedwars.upgrades[team].dragonbuff = true
 		elseif fields.armour then
 			if (bedwars.upgrades[team].armour or 0) >= 4 then
 				minetest.chat_send_player(sender:get_player_name(), "The maximum armour upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < (2 ^ ((bedwars.upgrades[team].armour or 0) + 2)) then
-				minetest.chat_send_player(sender:get_player_name(), "Wield " .. tostring(2 ^ ((bedwars.upgrades[team].armour or 0) + 2)) .. " diamonds to activate this upgrade")
+			reqstack:set_count(2 ^ ((bedwars.upgrades[team].armour or 0) + 2))
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(2 ^ ((bedwars.upgrades[team].armour or 0) + 2)) .. " diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - (2 ^ ((bedwars.upgrades[team].armour or 0) + 2)))
+			sender:get_inventory():remove_item("main", reqstack)
 			bedwars.upgrades[team].armour = (bedwars.upgrades[team].armour or 0) + 1
 		elseif fields.trap then
 			if bedwars.upgrades[team].trap then
 				minetest.chat_send_player(sender:get_player_name(), "The trap upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 1 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 1 diamond to activate this upgrade")
+			reqstack:set_count(1)
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 1 diamond to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 1)
+			sender:get_inventory():remove_item("main", reqstack)
 			bedwars.upgrades[team].trap = true
 		elseif fields.healpool then
 			if bedwars.upgrades[team].healpool then
 				minetest.chat_send_player(sender:get_player_name(), "The healpool upgrade is already active")
 				return
 			end
-			if wielded:get_name() ~= "default:diamond" or wielded:get_count() < 3 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 3 diamonds to activate this upgrade")
+			reqstack:set_count(3)
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 3 diamonds to activate this upgrade")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 3)
+			sender:get_inventory():remove_item("main", reqstack)
 			bedwars.upgrades[team].healpool = true
 		end
 		sender:set_wielded_item(wielded)
