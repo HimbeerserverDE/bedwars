@@ -27,6 +27,7 @@ if #maps > 0 then
 	dofile(mp .. "/forge.lua")
 	dofile(mp .. "/dragon.lua")
 	dofile(mp .. "/chest.lua")
+	dofile(mp .. "/antibuild.lua")
 	
 	math.randomseed(os.clock())
 	bedwars.current_map = maps[math.random(1, #maps)]
@@ -44,7 +45,7 @@ if #maps > 0 then
 							for z = centre.z - 30, centre.z + 30 do
 								local pos = {x = x, y = y, z = z}
 								local node = minetest.get_node(pos)
-								if node.name:find("wool:", nil, true) or node.name == "default:obsidian" or node.name == "default:wood" then
+								if bedwars.is_buyable_node(node) then
 									minetest.set_node(pos, {name = "air"})
 								end
 								if node.name == "bedwars:chest" then
