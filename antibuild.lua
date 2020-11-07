@@ -17,6 +17,8 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
+	if not placer then return end
+	if not placer:is_player() then return end
 	if not minetest.check_player_privs(placer:get_player_name(), {build = true}) and not bedwars.is_buyable_node(newnode) then
 		minetest.set_node(pos, oldnode)
 		minetest.chat_send_player(placer:get_player_name(), "You can't place this node.")
@@ -25,6 +27,8 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
 end)
 
 minetest.register_on_dignode(function(pos, oldnode, digger)
+	if not digger then return end
+	if not digger:is_player() then return end
 	if not minetest.check_player_privs(digger:get_player_name(), {build = true}) and not bedwars.is_buyable_node(oldnode) then
 		minetest.set_node(pos, oldnode)
 		minetest.chat_send_player(digger:get_player_name(), "You can't dig this node.")
