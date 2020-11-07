@@ -20,6 +20,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
 	if not minetest.check_player_privs(placer:get_player_name(), {build = true}) and not bedwars.is_buyable_node(oldnode) then
 		minetest.set_node(pos, oldnode)
 		minetest.chat_send_player(placer:get_player_name(), "You can't place this node.")
+		return itemstack
 	end
 end)
 
@@ -27,5 +28,15 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	if not minetest.check_player_privs(digger:get_player_name(), {build = true}) and not bedwars.is_buyable_node(oldnode) then
 		minetest.set_node(pos, oldnode)
 		minetest.chat_send_player(digger:get_player_name(), "You can't dig this node.")
+		local inv = digger:get_inventory()
+		local lists = inv:get_lists()
+		for list, v in pairs(lists) do
+			for _, itemstack in ipairs(v) do
+				if itemstack:get_name() == oldnode.name then
+					itemstack:set_count(itemstack:get_count() - 1)
+				end
+			end
+		end
+		inv:set_lists(lists)
 	end
 end)
