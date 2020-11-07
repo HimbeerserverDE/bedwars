@@ -29,7 +29,7 @@ end)
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	if not digger then return end
 	if not digger:is_player() then return end
-	if not minetest.check_player_privs(digger:get_player_name(), {build = true}) and not bedwars.is_buyable_node(oldnode) and not oldnode.name == "beds:bed_bottom" then
+	if not minetest.check_player_privs(digger:get_player_name(), {build = true}) and not bedwars.is_buyable_node(oldnode) and oldnode.name ~= "beds:bed_bottom" then
 		minetest.set_node(pos, oldnode)
 		minetest.chat_send_player(digger:get_player_name(), "You can't dig this node.")
 		local inv = digger:get_inventory()
