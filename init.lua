@@ -44,7 +44,7 @@ if #maps > 0 then
 							for z = centre.z - 30, centre.z + 30 do
 								local pos = {x = x, y = y, z = z}
 								local node = minetest.get_node(pos)
-								if node.name:find("wool:", nil, true) or node.name == "default:tinblock" or node.name == "default:wood" then
+								if node.name:find("wool:", nil, true) or node.name == "default:obsidian" or node.name == "default:wood" then
 									minetest.set_node(pos, {name = "air"})
 								end
 								if node.name == "bedwars:chest" then

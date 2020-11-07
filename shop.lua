@@ -4,7 +4,7 @@ bedwars.item_shop_fs = "size[6,6]" ..
 "item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]" ..
 "item_image_button[1,2;1,1;bow:bow_empty;bow;]item_image_button[2,2;1,1;bow:arrow;arrow;]" ..
 "item_image_button[1,3;1,1;default:apple;apple;]item_image_button[2,3;1,1;tnt:tnt;tnt;]item_image_button[3,3;1,1;default:pick_steel;steelpick;]item_image_button[4,3;1,1;default:pick_diamond;diamondpick;]" ..
-"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:tinblock;tin;]item_image_button[3,4;1,1;default:wood;wood;]item_image_button[4,4;1,1;default:axe_steel;steelaxe;]"
+"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:obsidian;obsidian;]item_image_button[3,4;1,1;default:wood;wood;]item_image_button[4,4;1,1;default:axe_steel;steelaxe;]"
 
 minetest.register_node("bedwars:shop_item", {
 	description = "Item shop",
@@ -28,11 +28,11 @@ minetest.register_node("bedwars:shop_item", {
 		local itemstack = ItemStack("")
 		local wielded = sender:get_wielded_item()
 		if fields.steelsword then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 3 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 3 gold to buy this item")
+			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 7 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 7 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 3)
+			wielded:set_count(wielded:get_count() - 7)
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_steel")
 		elseif fields.diamondsword then
@@ -57,7 +57,7 @@ minetest.register_node("bedwars:shop_item", {
 				return
 			end
 			wielded:set_count(wielded:get_count() - 4)
-			itemstack:set_count(16)
+			itemstack:set_count(8)
 			itemstack:set_name("bow:arrow")
 		elseif fields.apple then
 			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 2 then
@@ -68,11 +68,11 @@ minetest.register_node("bedwars:shop_item", {
 			itemstack:set_count(1)
 			itemstack:set_name("default:apple")
 		elseif fields.tnt then
-			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 5 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 5 gold to buy this item")
+			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 8 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 8 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 5)
+			wielded:set_count(wielded:get_count() - 8)
 			itemstack:set_count(1)
 			itemstack:set_name("tnt:tnt")
 		elseif fields.steelpick then
@@ -99,20 +99,20 @@ minetest.register_node("bedwars:shop_item", {
 			wielded:set_count(wielded:get_count() - 4)
 			itemstack:set_count(16)
 			itemstack:set_name("wool:" .. bedwars.get_player_team(sender:get_player_name()))
-		elseif fields.tin then
+		elseif fields.obsidian then
 			if wielded:get_name() ~= "default:mese_crystal" or wielded:get_count() < 4 then
 				minetest.chat_send_player(sender:get_player_name(), "Wield 4 mese to buy this item")
 				return
 			end
 			wielded:set_count(wielded:get_count() - 4)
-			itemstack:set_count(8)
-			itemstack:set_name("default:tinblock")
+			itemstack:set_count(4)
+			itemstack:set_name("default:obsidian")
 		elseif fields.wood then
-			if wielded:get_name() ~= "default:steel_ingot" or wielded:get_count() < 32 then
-				minetest.chat_send_player(sender:get_player_name(), "Wield 32 steel to buy this item")
+			if wielded:get_name() ~= "default:gold_ingot" or wielded:get_count() < 6 then
+				minetest.chat_send_player(sender:get_player_name(), "Wield 6 gold to buy this item")
 				return
 			end
-			wielded:set_count(wielded:get_count() - 32)
+			wielded:set_count(wielded:get_count() - 6)
 			itemstack:set_count(16)
 			itemstack:set_name("default:wood")
 		elseif fields.steelaxe then
