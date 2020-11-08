@@ -187,8 +187,7 @@ minetest.register_node("bedwars:shop_team", {
 			return
 		end
 		local team = bedwars.get_player_team(sender:get_player_name())
-		local reqstack = ItemStack("")
-		reqstack:set_name("default:diamond")
+		local reqstack = ItemStack("default:diamond")
 		if fields.forge then
 			if (bedwars.upgrades[team].forge or 0) >= 4 then
 				minetest.chat_send_player(sender:get_player_name(), "The maximum forge upgrade is already active")
