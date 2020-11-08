@@ -65,7 +65,7 @@ bedwars.get_team_by_pos = function(pos)
 	end
 	local smallest = {x = 300, z = 300}
 	for team, diff in pairs(diffs) do
-		if diff.x < smallest.x and diff.z < smallest.z then
+		if diff.x + diff.z < smallest.x + smallest.z then
 			smallest.x = diff.x
 			smallest.z = diff.z
 		end
