@@ -67,8 +67,10 @@ if #maps > 0 then
 	minetest.register_on_dieplayer(function(player)
 		local inv = player:get_inventory()
 		for k, v in pairs(inv:get_lists()) do
-			for _, itemstack in ipairs(v) do
-				minetest.add_item(player:get_pos(), itemstack)
+			if k ~= "ec" then
+				for _, itemstack in ipairs(v) do
+					minetest.add_item(player:get_pos(), itemstack)
+				end
 			end
 		end
 		for k, v in pairs(inv:get_lists()) do
