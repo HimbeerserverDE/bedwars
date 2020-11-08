@@ -230,9 +230,9 @@ minetest.register_node("bedwars:shop_team", {
 				return
 			end
 			local costs = {5, 10, 20, 30}
-			reqstack:set_count(costs[bedwars.upgrades[team].armour or 0) + 1])
+			reqstack:set_count(costs[(bedwars.upgrades[team].armour or 0) + 1])
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(costs[bedwars.upgrades[team].armour or 0) + 1]) .. " diamonds to activate this upgrade")
+				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(costs[(bedwars.upgrades[team].armour or 0) + 1]) .. " diamonds to activate this upgrade")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
