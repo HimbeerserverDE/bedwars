@@ -27,6 +27,10 @@ minetest.register_node("bedwars:shop_item", {
 	on_receive_fields = function(pos, formname, fields, sender)
 		local itemstack = ItemStack("")
 		local wielded = sender:get_wielded_item()
+		if wielded:get_name() == "default:steel_ingot" or wielded:get_name() == "default:gold_ingot" or wielded:get_name() == "default:mese_crystal" then
+			minetest.chat_send_player(sender:get_player_name(), "Do not wield currency")
+			return
+		end
 		local reqstack = ItemStack("")
 		if fields.steelsword then
 			reqstack:set_count(7)
@@ -178,6 +182,10 @@ minetest.register_node("bedwars:shop_team", {
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
 		local wielded = sender:get_wielded_item()
+		if wielded:get_name() == "default:diamond" then
+			minetest.chat_send_player(sender:get_player_name(), "Do not wield currency")
+			return
+		end
 		local team = bedwars.get_player_team(sender:get_player_name())
 		local reqstack = ItemStack("")
 		reqstack:set_name("default:diamond")
