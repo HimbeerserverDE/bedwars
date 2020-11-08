@@ -43,10 +43,10 @@ minetest.register_node("bedwars:shop_item", {
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_steel")
 		elseif fields.diamondsword then
-			reqstack:set_count(3)
+			reqstack:set_count(6)
 			reqstack:set_name("default:mese_crystal")
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need 3 mese to buy this item")
+				minetest.chat_send_player(sender:get_player_name(), "You need 6 mese to buy this item")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
@@ -133,20 +133,20 @@ minetest.register_node("bedwars:shop_item", {
 			itemstack:set_count(4)
 			itemstack:set_name("default:obsidian")
 		elseif fields.wood then
-			reqstack:set_count(6)
+			reqstack:set_count(12)
 			reqstack:set_name("default:gold_ingot")
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need 6 gold to buy this item")
+				minetest.chat_send_player(sender:get_player_name(), "You need 12 gold to buy this item")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(16)
 			itemstack:set_name("default:wood")
 		elseif fields.steelaxe then
-			reqstack:set_count(12)
+			reqstack:set_count(24)
 			reqstack:set_name("default:gold_ingot")
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need 12 gold to buy this item")
+				minetest.chat_send_player(sender:get_player_name(), "You need 24 gold to buy this item")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
@@ -193,9 +193,9 @@ minetest.register_node("bedwars:shop_team", {
 				minetest.chat_send_player(sender:get_player_name(), "The maximum forge upgrade is already active")
 				return
 			end
-			reqstack:set_count(2 ^ ((bedwars.upgrades[team].forge or 0) + 1))
+			reqstack:set_count(4 * ((bedwars.upgrades[team].forge or 0) + 1))
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(2 ^ ((bedwars.upgrades[team].forge or 0) + 1)) .. " diamonds to activate this upgrade")
+				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(4 * ((bedwars.upgrades[team].forge or 0) + 1)) .. " diamonds to activate this upgrade")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
@@ -205,9 +205,9 @@ minetest.register_node("bedwars:shop_team", {
 				minetest.chat_send_player(sender:get_player_name(), "The sharpness upgrade is already active")
 				return
 			end
-			reqstack:set_count(4)
+			reqstack:set_count(8)
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need 4 diamonds to activate this upgrade")
+				minetest.chat_send_player(sender:get_player_name(), "You need 8 diamonds to activate this upgrade")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
@@ -229,9 +229,10 @@ minetest.register_node("bedwars:shop_team", {
 				minetest.chat_send_player(sender:get_player_name(), "The maximum armour upgrade is already active")
 				return
 			end
-			reqstack:set_count(2 ^ ((bedwars.upgrades[team].armour or 0) + 2))
+			local costs = {5, 10, 20, 30}
+			reqstack:set_count(costs[bedwars.upgrades[team].armour or 0) + 1])
 			if not sender:get_inventory():contains_item("main", reqstack) then
-				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(2 ^ ((bedwars.upgrades[team].armour or 0) + 2)) .. " diamonds to activate this upgrade")
+				minetest.chat_send_player(sender:get_player_name(), "You need " .. tostring(costs[bedwars.upgrades[team].armour or 0) + 1]) .. " diamonds to activate this upgrade")
 				return
 			end
 			sender:get_inventory():remove_item("main", reqstack)
