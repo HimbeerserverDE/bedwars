@@ -37,12 +37,18 @@ bedwars.event_timer_start = function()
 				})
 			end
 			if bedwars.event_list[bedwars.event] == "sudden_death" then
+				minetest.sound_play("bed_destruction", {
+					object = minetest.get_connected_players()[1],
+					gain = 2.0,
+				})
 				local dragons = 4
 				for _, team in ipairs(bedwars.upgrades) do
 					if team.dragonbuff then dragons = dragons + 1 end
 				end
-				for i = 1, 4 do
-					minetest.add_entity(minetest.string_to_pos(bedwars.get_map_by_name(bedwars.current_map).mese1), "bedwars:dragon")
+				local pos = bedwars.get_map_by_name(bedwars.current_map).mese1
+				pos.y = pos.y + 10
+				for i = 1, dragons do
+					minetest.add_entity(minetest.string_to_pos(), "bedwars:dragon")
 				end
 			end
 			if bedwars.event_list[bedwars.event] == "game_end" then
