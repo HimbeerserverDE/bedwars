@@ -32,7 +32,7 @@ bedwars.event_timer_start = function()
 			if bedwars.event_list[bedwars.event] == "bed" then
 				bedwars.beds = {red = false, green = false, blue = false, yellow = false}
 				minetest.sound_play("bed_destruction", {
-					to_player = minetest.get_connected_players()[1],
+					object = minetest.get_connected_players()[1],
 					gain = 2.0,
 				})
 			end
