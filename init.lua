@@ -35,7 +35,7 @@ if #maps > 0 then
 	minetest.register_on_joinplayer(function(player)
 		player:set_hp(20)
 		minetest.after(0, function(player)
-			local itemstack = ItemStack("default:sword_wood")
+			local itemstack = ItemStack("default:sword_stone")
 			player:set_wielded_item(itemstack)
 		end, player)
 		if not bedwars.init then
