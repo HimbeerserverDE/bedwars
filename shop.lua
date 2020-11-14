@@ -320,3 +320,18 @@ minetest.register_abm({
 		end
 	end,
 })
+
+minetest.register_abm({
+	label = "regeneration",
+	nodenames = {"beds:bed_bottom"},
+	interval = 6,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local objs = minetest.get_objects_inside_radius(pos, 100)
+		for _, obj in ipairs(objs) do
+			if obj:is_player() then
+				obj:set_hp(obj:get_hp() + 1)
+			end
+		end
+	end,
+})
