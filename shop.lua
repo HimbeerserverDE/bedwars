@@ -307,7 +307,7 @@ minetest.register_abm({
 minetest.register_abm({
 	label = "healpool",
 	nodenames = {"beds:bed_bottom"},
-	interval = 3,
+	interval = 6,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local team = bedwars.get_team_by_pos(pos)
@@ -324,7 +324,7 @@ minetest.register_abm({
 minetest.register_abm({
 	label = "regeneration",
 	nodenames = {"beds:bed_bottom"},
-	interval = 6,
+	interval = 12,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local objs = minetest.get_objects_inside_radius(pos, 100)
