@@ -37,6 +37,8 @@ minetest.register_on_dieplayer(function(player)
 end)
 
 minetest.register_on_respawnplayer(function(player)
+	local itemstack = ItemStack("default:sword_wood")
+	player:set_wielded_item(itemstack)
 	if not bedwars.beds[bedwars.get_player_team(player:get_player_name())] then
 		minetest.kick_player(player:get_player_name(), "You cannot respawn because your bed has been destroyed. Please wait for a new game to start.")
 		minetest.after(1, function()
