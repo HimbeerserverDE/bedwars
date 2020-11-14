@@ -1,10 +1,11 @@
 bedwars.upgrades = {red = {}, green = {}, blue = {}, yellow = {}}
 
-bedwars.item_shop_fs = "size[6,6]" ..
-"item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]" ..
+bedwars.item_shop_fs = "size[6,7]" ..
+"item_image_button[1,1;1,1;default:sword_steel;steelsword;]item_image_button[2,1;1,1;default:sword_diamond;diamondsword;]item_image_button[3,1;1,1;knockback:stick;kbstick;]" ..
 "item_image_button[1,2;1,1;bow:bow_empty;bow;]item_image_button[2,2;1,1;bow:arrow;arrow;]" ..
 "item_image_button[1,3;1,1;default:apple;apple;]item_image_button[2,3;1,1;tnt:tnt;tnt;]item_image_button[3,3;1,1;default:pick_steel;steelpick;]item_image_button[4,3;1,1;default:pick_diamond;diamondpick;]" ..
-"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:obsidian;obsidian;]item_image_button[3,4;1,1;default:wood;wood;]item_image_button[4,4;1,1;default:axe_steel;steelaxe;]"
+"item_image_button[1,4;1,1;wool:white;wool;]item_image_button[2,4;1,1;default:obsidian;obsidian;]item_image_button[3,4;1,1;default:wood;wood;]item_image_button[4,4;1,1;default:axe_steel;steelaxe;]" ..
+"item_image_button[1,5;1,1;potions:speed;speedpotion;]item_image_button[2,5;1,1;potions:jump;jumppotion;]item_image_button[3,5;1,1;potions:antigravity;antigravitypotion;]"
 
 minetest.register_node("bedwars:shop_item", {
 	description = "Item shop",
@@ -52,6 +53,16 @@ minetest.register_node("bedwars:shop_item", {
 			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:sword_diamond")
+		elseif fields.kbstick then
+			reqstack:set_count(10)
+			reqstack:set_name("default:gold_ingot")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 10 gold to buy this item")
+				return
+			end
+			sender:get_inventory():remove_item("main", reqstack)
+			itemstack:set_count(1)
+			itemstack:set_name("knockback:stick")
 		elseif fields.bow then
 			reqstack:set_count(8)
 			reqstack:set_name("default:mese_crystal")
@@ -152,6 +163,36 @@ minetest.register_node("bedwars:shop_item", {
 			sender:get_inventory():remove_item("main", reqstack)
 			itemstack:set_count(1)
 			itemstack:set_name("default:axe_steel")
+		elseif fields.speedpotion then
+			reqstack:set_count(3)
+			reqstack:set_name("default:mese_crystal")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 3 mese to buy this item")
+				return
+			end
+			sender:get_inventory():remove_item("main", reqstack)
+			itemstack:set_count(1)
+			itemstack:set_name("potions:speed")
+		elseif fields.jumppotion then
+			reqstack:set_count(3)
+			reqstack:set_name("default:mese_crystal")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 3 mese to buy this item")
+				return
+			end
+			sender:get_inventory():remove_item("main", reqstack)
+			itemstack:set_count(1)
+			itemstack:set_name("potions:jump")
+		elseif fields.antigravitypotion then
+			reqstack:set_count(3)
+			reqstack:set_name("default:mese_crystal")
+			if not sender:get_inventory():contains_item("main", reqstack) then
+				minetest.chat_send_player(sender:get_player_name(), "You need 3 mese to buy this item")
+				return
+			end
+			sender:get_inventory():remove_item("main", reqstack)
+			itemstack:set_count(1)
+			itemstack:set_name("potions:antigravity")
 		end
 		sender:set_wielded_item(wielded)
 		sender:get_inventory():add_item("main", itemstack)
