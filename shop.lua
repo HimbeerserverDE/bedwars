@@ -368,7 +368,7 @@ minetest.register_abm({
 	interval = 12,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		local objs = minetest.get_objects_inside_radius(pos, 100)
+		local objs = minetest.get_objects_inside_radius(pos, 7)
 		for _, obj in ipairs(objs) do
 			if obj:is_player() then
 				obj:set_hp(obj:get_hp() + 1)
