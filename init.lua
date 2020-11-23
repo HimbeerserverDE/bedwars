@@ -4,6 +4,8 @@ bedwars.init = false
 
 bedwars.storage = minetest.get_mod_storage()
 
+math.randomseed(os.clock())
+
 local mp = minetest.get_modpath(minetest.get_current_modname())
 
 bedwars.log = function(msg)
@@ -29,7 +31,6 @@ if #maps > 0 then
 	dofile(mp .. "/chest.lua")
 	dofile(mp .. "/antibuild.lua")
 	
-	math.randomseed(os.clock())
 	bedwars.current_map = maps[math.random(1, #maps)]
 	
 	minetest.register_on_joinplayer(function(player)
