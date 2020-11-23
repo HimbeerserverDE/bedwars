@@ -73,7 +73,7 @@ minetest.register_chatcommand("map_modify", {
 			end
 		end
 		bedwars.get_map_by_name(map_name)[key] = value or minetest.pos_to_string(minetest.get_player_by_name(name):get_pos())
-		return true, "Attribute changed to current position"
+		return true, "Attribute changed to " .. bedwars.get_map_by_name(map_name)[key]
 	end,
 })
 
